@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "reservation-studio-business": {
+      "type": "streamable-http",
+      "url": "https://mcp.reservation.studio/business",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            }
+          }
+        }
+      }
+    }
+  }
+}

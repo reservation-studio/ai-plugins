@@ -1,0 +1,84 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "reservation-studio-business",
+  "version": "0.4.2",
+  "description": "Ask your AI assistant about the Reservation.Studio business you work in — schedule, availability, clients, services, staff, reports and team tasks — and, when the owner allows it, book, move or cancel appointments.",
+  "homepage": "https://reservation.business/en",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Reservation.Studio Business",
+        "shortDescription": "Your schedule, right in chat",
+        "longDescription": "Connect the Reservation.Studio business you work in and ask about it in plain language: who is booked tomorrow, when a stylist is free on Friday afternoon, what last month's revenue was, when a client last came in and which services they had.\n\nYour assistant can see the schedule, availability, blocked time, clients and their visit history, services, staff and working hours, memberships, reports and the team's tasks. Reports are available only with Reports PRO, and memberships only if the business has that feature. You see only what your role in Reservation.Studio allows.\n\nIf the owner allows it for you, the assistant can also book, move and cancel appointments, block off and unblock time, add clients to groups or remove them, set whether they accept marketing, activate or deactivate them, and manage tasks — always within your role's permissions. It describes each change first and changes nothing until you confirm.\n\nThe owner turns on AI connectors for the business under Integrations → AI connectors and decides who on the team may use them and who may make changes. You can disconnect at any time, and the owner can switch AI connectors off for the whole business.",
+        "developerName": "ProVision Media Group Ltd.",
+        "category": "Productivity",
+        "websiteURL": "https://reservation.business/en",
+        "supportURL": "https://help.reservation.studio",
+        "privacyPolicyURL": "https://reservation.business/en/privacy-policy",
+        "termsOfServiceURL": "https://reservation.business/en/terms",
+        "logo": "./assets/logo.png"
+      },
+      "publication": {
+        "countries": [],
+        "release_notes": "First release. Ask about the schedule, availability, blocked time, clients and their visit history, services, staff and working hours, memberships, reports and team tasks. When the owner allows it, also book, move and cancel appointments, block off and unblock time, add clients to groups or remove them, set marketing consent, activate or deactivate clients, and manage tasks — each change only after you confirm it.",
+        "translations": {
+          "bg-BG": {
+            "subtitle": "Графикът ви в чата",
+            "description": "Свържете Reservation.Studio и питайте на обикновен език за бизнеса, в който работите: кой е записан за утре, кога има свободен стилист в петък следобед, какъв е приходът за миналия месец, кога даден клиент е идвал за последно и какви услуги е ползвал.\n\nAI асистентът вижда графика, свободните часове, блокираното време, клиентите и историята на посещенията им, услугите, екипа и работното време, абонаментите, отчетите и задачите на екипа. Отчетите са налични само с Отчети PRO, а абонаментите — само ако бизнесът има съответната функция. Виждате само това, което ролята ви в Reservation.Studio позволява.\n\nАко собственикът ви е разрешил, асистентът може и да записва, мести и отказва резервации, да блокира време и да го освобождава, да добавя клиенти в групи или да ги премахва от тях, да определя дали получават маркетингови известия, да ги активира или деактивира и да управлява задачите — винаги в рамките на правата на ролята ви. Асистентът първо описва всяка промяна и я прави само след вашето потвърждение.\n\nСобственикът разрешава AI конекторите в „Интеграции → AI конектори“ и решава кой от екипа може да ги ползва и кой може да прави промени. Можете да прекъснете връзката по всяко време, а собственикът може да спре AI конекторите за целия бизнес."
+          }
+        }
+      },
+      "review": {
+        "demo_recording_url": "https://youtu.be/XW-x5L9AdK4",
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Tomorrow's schedule",
+              "prompt": "What appointments do we have tomorrow?",
+              "tools_triggered": "get-business-context, get-schedule",
+              "expected_behavior": "Names the business and lists the appointments for tomorrow by the business's own date in Sofia, each with its start time in Sofia local time (not converted to the reviewer's timezone), the client, the service and the staff member."
+            },
+            {
+              "description": "Availability for a service",
+              "prompt": "What times are free for a haircut on Friday afternoon?",
+              "tools_triggered": "get-business-context, list-services, find-available-slots",
+              "expected_behavior": "Finds the Haircut service and lists the free start times from 12:00 onwards on Friday (today, if it is Friday at the business; otherwise the next Friday), without booking anything."
+            },
+            {
+              "description": "Revenue for last month",
+              "prompt": "How much revenue did we make last month?",
+              "tools_triggered": "get-business-context, get-report",
+              "expected_behavior": "Reports the business's revenue for the previous calendar month, stating the dates covered and the currency, without changing anything."
+            },
+            {
+              "description": "A client's last visit",
+              "prompt": "When did Maria Ivanova last visit and what did she have done?",
+              "tools_triggered": "get-business-context, find-client, get-client-history, get-schedule",
+              "expected_behavior": "Finds the client and gives the date, services and staff member of her most recent past visit (not an upcoming booking)."
+            },
+            {
+              "description": "Booking with confirmation",
+              "prompt": "Book Elena Petrova for a haircut tomorrow at 10:00 with whoever is free.",
+              "tools_triggered": "get-business-context, find-client, list-services, find-available-slots, book-appointments",
+              "expected_behavior": "Before booking, shows a summary — client, service, staff member, date and time — and asks for confirmation; no appointment exists at that point. After the user says yes, the appointment is created and appears in tomorrow's schedule."
+            }
+          ],
+          "negative": [
+            {
+              "description": "General knowledge question",
+              "prompt": "What's the weather in Sofia tomorrow?"
+            },
+            {
+              "description": "Writing unrelated to the business",
+              "prompt": "Write a birthday message for my mother."
+            },
+            {
+              "description": "Advice that needs no business data",
+              "prompt": "How do I cut a bob?"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "reservation-studio-business": {
+      "type": "http",
+      "url": "https://mcp.reservation.studio/business"
+    }
+  }
+}

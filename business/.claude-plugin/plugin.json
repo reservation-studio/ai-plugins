@@ -1,0 +1,18 @@
+{
+  "name": "reservation-studio-business",
+  "displayName": "Reservation.Studio Business",
+  "version": "0.4.2",
+  "description": "Ask Claude about the Reservation.Studio business you work in — schedule, availability, clients, services, staff, reports and team tasks — and, when the owner allows it, book, move or cancel appointments.",
+  "author": {
+    "name": "ProVision Media Group Ltd.",
+    "url": "https://reservation.business/en"
+  },
+  "homepage": "https://reservation.business/en",
+  "repository": "https://github.com/reservation-studio/ai-plugins",
+  "license": "MIT",
+  "keywords": ["appointments", "booking", "scheduling", "salon", "clinic", "fitness"],
+  "icon": "./assets/logo.png",
+  "supportUrl": "https://help.reservation.studio",
+  "privacyPolicyUrl": "https://reservation.business/en/privacy-policy",
+  "termsOfServiceUrl": "https://reservation.business/en/terms"
+}
