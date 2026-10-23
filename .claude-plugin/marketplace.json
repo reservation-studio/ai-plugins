@@ -1,0 +1,14 @@
+{
+  "name": "reservation-studio",
+  "description": "Reservation.Studio plugins for Claude.",
+  "owner": {
+    "name": "ProVision Media Group Ltd.",
+    "url": "https://reservation.business/en"
+  },
+  "plugins": [
+    {
+      "name": "reservation-studio-business",
+      "source": "./business"
+    }
+  ]
+}
